@@ -69,13 +69,13 @@ input, button, textarea, select {
 }
 
 :root {
-	--fg : #ffffff;
-	--bg : #333333;
-	--f-family : 'system-ui', 'Roboto', sans-serif;
+	--fg         : #ffffff;
+	--bg         : #333333;
+	--ff-primary : 'system-ui', 'Roboto', sans-serif;
 }
 
 body {
-	font-family : var(--f-family);
+	font-family : var(--ff-primary);
 	font-size   : 1.125rem;
 	font-weight : 400;
 
@@ -94,48 +94,103 @@ body {
 }
 
 .quote {
-	padding          : 2em 3em;
-	max-inline-size  : 55ch;
-	margin-inline    : 2em;
+	padding          : 2em clamp(2em, 5vw, 3em);
+	inline-size      : min(100% - 3rem, 55ch);
 	border-radius    : 0.5rem;
 	background-color : #ffffff;
 }
 
+
+
 :where(.quote__text, .quote__author) {
 	color       : var(--_bg);
-	line-height : 1.1;
+	line-height : 1.15;
 }
 
 .quote__text {
-	font-size   : 1.3rem;
+	font-size   : 1.125rem;
 	font-weight : 700;
 }
 
-.quote__text::before {
-	content : "\f10d";
-	font-size : 2em;
-	position: absolute;
+@media (min-width: 30em) {
+	.quote__text {
+		font-size   : 1.25rem;
+	}
 }
 
 .quote__author {
-	font-size   : 1.1rem;
+	font-size : 0.875rem;
+}
+
+@media (min-width: 30em) {
+	.quote__author {
+		font-size : 1rem;
+	}
+}
+
+.quote__author::before {
+	content   : '—';
+	position  : absolute;
+	transform : translateX(calc(-100% - 0.5em));
 }
 
 .btn {
 	--_fg            : var(--fg, #000000);
 	--_bg            : var(--bg, #888888);
 
+	cursor           : pointer;
 	display          : inline-grid;
-	padding          : 0.5em 1em;
+	padding          : 0.525em 0.825em;
 	border-radius    : 0.5rem;
 	background-color : var(--_bg);
 	color            : var(--_fg);
 	border           : 0;
 	text-decoration  : none;
-	font-size        : 1.1rem;
-	font-weight      : 700;
+	font-size        : 1rem;
+	font-weight      : 600;
+	line-height      : 1;
+}
+
+.btn:has(svg) {
+	place-items : center;
+}
+
+.stack {
+	display : grid;
+}
+
+.stack > * {
+	margin-block : 0;
+}
+
+.stack > * + * {
+	margin-block-start : var(--space, 1em);
 }
 
 .text-center {
 	text-align : center;
+}
+
+:where([class*='align'], [class*='direction'], [class*='justify']) {
+	display : grid;
+}
+
+.direction-row {
+	grid-auto-flow : column
+}
+
+.justify-items-between {
+	justify-content : space-between;
+}
+
+.space-1 {
+	--space : 1.125em;
+}
+
+.space-2 {
+	--space : 1.5em;
+}
+
+.space-3 {
+	--space : 2em;
 }
